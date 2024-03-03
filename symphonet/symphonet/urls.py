@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from symphonet1 import views
+from django.contrib import admin
+from django.urls import include
+from django.conf import settings
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
+    path('symphonet/', include('symphonet1.urls')),
 ]
