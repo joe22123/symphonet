@@ -6,5 +6,8 @@ app_name = 'symphonet'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('about_us/', views.about_us, name='about_us')
+    path('about_us/', views.about_us, name='about_us'),
+    path('account/', views.account, name='account'),
+    path('account/myreviews', views.user_reviews, name='user_reviews'),
+    path('account/myplaylists', views.user_playlists, name='playlists'),
 ]

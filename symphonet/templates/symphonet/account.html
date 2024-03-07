@@ -1,0 +1,23 @@
+{% extends 'symphonet/base.html' %}
+{% load staticfiles %}
+
+<!-- Should eventually be username -->
+{% block title_block %}
+    Profile
+{% endblock %}
+
+{% block body_block %}
+    <div>
+        <h2>User's Playlists</h2>
+        <a href="{% url 'symphonet:playlists' %}">My Playlists</a>
+    </div>
+
+    <div>
+        <h2>Your Top Songs</h2>
+        <a href="{% url 'symphonet:user_reviews' %}">My Reviews</a>
+    </div>
+
+    <div>
+        <h2>Friend's Playlists</h2>
+    </div>
+{% endblock %}
