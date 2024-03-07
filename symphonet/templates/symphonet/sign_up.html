@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background-image: url(BG.jpg);
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form {
+            background-color: rgba(0, 0, 0, 0.5); /* Add opacity to background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px; /* Set width to prevent stretching */
+        }
+
+        .form-control {
+            margin-bottom: 10px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center; /* Align buttons to the center */
+        }
+
+        .btn {
+            width: 50%;
+            color: #000;
+            background-color:#fff0db;
+            margin-top: 10px; /* Added margin between buttons and input fields */
+            transition: all 0.3s ease; /* Smooth transition */
+        }
+
+        .btn:hover {
+            color: #fff0db;
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-form">
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="First Name" aria-label="Firstname" aria-describedby="addon-wrapping">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Last Name" aria-label="Lastname" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+        <div class="mb-3">
+            <input type="date" id="datepicker" class="form-control" placeholder="Select Date">
+
+        </div>
+        <div class="btn-container">
+            <button type="button" class="btn">Login</button>
+        </div>
+        <div class="btn-container">
+            <button type="button" class="btn">Sign up</button>
+        </div>
+    </div>
+</body>
+
+</html>
