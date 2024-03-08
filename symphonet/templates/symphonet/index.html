@@ -2,5 +2,35 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    Index
+    Homepage
+{% endblock %}
+
+{% block body_block %}
+    <div>
+    <h1>Index/HomePage<h1> 
+    <h1>Trending<h1> 
+    </div>
+        <div>
+            <h2>Most Liked Playlists</h2>
+            {% if playlists %}
+                <ul>
+                {% for playlist in playlists %}
+                {% endfor %}
+                </ul> 
+            {% else %}
+                <strong>There are no playlists present.</strong> 
+            {% endif %}
+        </div>
+    
+        <h2>Most Reviewed Songs</h2>
+        <div>
+            {% if songs %}
+                <ul>
+                    {% for song in songs %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>There are no songs present.</strong>
+            {% endif %}
+        </div>
 {% endblock %}
