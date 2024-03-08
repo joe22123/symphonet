@@ -17,3 +17,9 @@ def user_reviews(request):
 
 def user_playlists(request):
     return render(request, 'symphonet/playlists.html')
+
+def sign_up(request):
+    return render(request, 'symphonet/sign_up.html')
+
+def login(request):
+    return render(request, 'symphonet/login.html')
