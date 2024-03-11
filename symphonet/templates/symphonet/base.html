@@ -17,7 +17,11 @@
 
             {% if user.is_authenticated %}
                 <p>Hello {{ user.username }}</p>
+            {% else %}
+                <a href = "{% url 'symphonet:sign_up' %}">Sign up</a>
+                <a href = "{% url 'symphonet:login' %}">Login</a>
             {% endif %}
+
             <hr />
             <li><a href="{% url 'symphonet:index' %}">Index</a></li>
             <li><a href="{% url 'symphonet:about_us' %}">About us</a></li>

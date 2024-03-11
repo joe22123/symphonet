@@ -9,4 +9,16 @@
     <div>
         <h2>Your Reviews</h2>
     </div>
+
+    <div>
+        {% if topFive %}
+        <ul>
+            {% for review in topFive %}
+                <li> {{ review.song}} - Rating of {{ review.rating}}/5 </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong> You have not rated any songs yet</strong>
+        {% endif %}
+    </div>
 {% endblock %}
