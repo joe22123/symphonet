@@ -13,8 +13,8 @@
     <div>
         {% if topFive %}
         <ul>
-            {% for review in topFive %}
-                <li> {{ review.song}} - Rating of {{ review.rating}}/5 </li>
+            {% for a in topFive %}
+                <li> {{ a.song }} - Rating of {{ a.score }} /5 </li>
             {% endfor %}
         </ul>
         {% else %}

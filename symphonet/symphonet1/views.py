@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from symphonet1.models import Review
+from symphonet1.models import Song
 from symphonet1.forms import UserForm, UserProfileForm
 
 
@@ -15,9 +15,9 @@ def account(request):
     return render(request, 'symphonet/account.html')
 
 def user_reviews(request):
-    topFiveSongs = Review.objects.order_by('-rating')[:5]
+    #topFiveSongs = Song.objects.order_by('-ratingScore')[:5]
     context_dict = {}
-    context_dict['topFive'] = topFiveSongs
+    #context_dict['topFive'] = topFiveSongs
     return render(request, 'symphonet/my_reviews.html', context = context_dict)
 
 def user_playlists(request):
@@ -50,7 +50,7 @@ def sign_up(request):
                    'profile_form': profile_form,
                    'registered':registered}
 
-    return render(request, 'symphonet/sign_up.html')
+    return render(request, 'symphonet/sign_up.html', context = context_dict)
 
 def login(request):
     return render(request, 'symphonet/login.html')
