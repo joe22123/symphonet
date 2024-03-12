@@ -2,35 +2,37 @@
 {% load staticfiles %}
 
 <html>
-    <head>
-        <title>
-            Symphonet -
-            {% block title_block %}
-                Symphonet
-            {% endblock %}
-        </title>
-    </head>
-    <body>
-        <div>
-            {% block header_block %}
-            <h1>SymphoNet</h1>
 
-            {% if user.is_authenticated %}
-                <p>Hello {{ user.username }}</p>
-            {% endif %}
-            <hr />
-            <li><a href="{% url 'symphonet:index' %}">Index</a></li>
-            <li><a href="{% url 'symphonet:about_us' %}">About us</a></li>
-            <!-- (TOE) To work on: Account be an icon and only displayed if user is logged in -->
-            <li><a href="{% url 'symphonet:account' %}">Account</a></li>
-            {% endblock %}
+<head>
+    <title>
+        Symphonet -
+        {% block title_block %}
+        Symphonet
+        {% endblock %}
+    </title>
+</head>
 
-        </div>
-        <div>
+<body>
+    <div>
+        {% block header_block %}
+        <h1>SymphoNet</h1>
+
+        {% if user.is_authenticated %}
+        <p>Hello {{ user.username }}</p>
+        {% endif %}
+        <hr />
+        <li><a href="{% url 'symphonet:index' %}">Index</a></li>
+        <li><a href="{% url 'symphonet:about_us' %}">About us</a></li>
+        <!-- (TOE) To wsork on: Account be an icon and only displayed if user is logged in -->
+        <li><a href="{% url 'symphonet:account' %}">Account</a></li>
+        {% endblock %}
+    </div>
+    <div>
         {% block body_block %}
         {% endblock %}
-        </div>
+    </div>
 
 
-    </body>
+</body>
+
 </html>
