@@ -90,18 +90,33 @@
 {% block body_block %}
 <div class="login-container">
     <div class="login-form">
+        <!--
         <div class="mb-3">
             <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
         </div>
         <div class="mb-3">
             <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
         </div>
+    -->
+    {% if user.is_authenticated %}
+        welcome to symphonet {{ user.username }}
+        <a href = "{% url 'symphonet:index' %}">Main Page</a>
+    {% else %}
+        <form id="login_form" method="post" action="{% url 'symphonet:user_login' %}">
+
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="30"/> <br />
+            Password: <input type ="password" name="password" value="" size="30"/> <br />
+
         <div class="btn-container">
-            <button type="button" class="btn">Login</button>
+            <input type="submit" class="btn" value="login"/>
         </div>
         <div class="btn-container">
-            <button type="button" class="btn">Sign up</button>
+            <button type="button" class="btn">
+                <a href = "{% url 'symphonet:sign_up' %}">Sign up</a></button>
         </div>
+    </form>
+    {% endif %}
     </div>
 </div>
 {% endblock %}

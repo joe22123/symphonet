@@ -19,9 +19,11 @@
 
         {% if user.is_authenticated %}
         <p>Hello {{ user.username }}</p>
-            {% else %}
+        <a href ="{% url 'symphonet:logout' %}">Logout</a>
+        {% else %}
                 <a href = "{% url 'symphonet:sign_up' %}">Sign up</a>
-                <a href = "{% url 'symphonet:login' %}">Login</a>
+                <a href = "{% url 'symphonet:user_login' %}">Login</a>
+
         {% endif %}
 
         <hr />

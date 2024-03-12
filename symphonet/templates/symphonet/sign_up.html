@@ -65,35 +65,50 @@
 {% endblock %}
 
 {% block body_block %}
-<div class="login-form">
-    <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-            aria-describedby="addon-wrapping">
-    </div>
-    <div class="mb-3">
-        <input type="password" class="form-control" placeholder="Password" aria-label="Password"
-            aria-describedby="addon-wrapping">
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <input type="text" class="form-control" placeholder="First Name" aria-label="Firstname"
+<div class="login-form"> 
+        <!-- 
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Email" aria-label="Email"
                 aria-describedby="addon-wrapping">
         </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Last Name" aria-label="Lastname"
+        <div class="mb-3">
+            <input type="password" class="form-control" placeholder="Password" aria-label="Password"
                 aria-describedby="addon-wrapping">
         </div>
-    </div>
-    <div class="mb-3">
-        <input type="date" id="datepicker" class="form-control" placeholder="Select Date">
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="First Name" aria-label="Firstname"
+                    aria-describedby="addon-wrapping">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Last Name" aria-label="Lastname"
+                    aria-describedby="addon-wrapping">
+            </div>
+        </div>
+        <div class="mb-3">
+            <input type="date" id="datepicker" class="form-control" placeholder="Select Date">
 
-    </div>
-    <div class="btn-container">
-        <button type="button" class="btn">Sign up</button>
-    </div>
-    <div class="btn-container">
-        <button type="button" class="btn">Login</button>
-    </div>
+        </div>
+    -->
+    {% if registered %}
+        <p> thank you for signing up</p>
+        <a href = "{% url 'symphonet:index' %}">Main Page</a>
+    {% else %}
+    <form id="user_form" method = "post" action="{% url 'symphonet:sign_up' %}" enctype = "multipart/form-data">
+
+        {% csrf_token %}
+        {{ user_form.as_p }}
+
+        <div class="btn-container">
+            <input type="submit" class="btn" name = "submit" value="Sign up">
+        </div>
+        <div class="btn-container">
+            <button type="button" class="btn">
+                <a href = "{% url 'symphonet:user_login' %}">Login</a></button>
+        </div>
+       
+    </form>
+    {% endif %}
     
 </div>
 {% endblock %}

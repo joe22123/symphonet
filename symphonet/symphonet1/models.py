@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 def limit(value):
     if value >6 and value >0:
         raise ValidationError("please enter a number less than 5")
-
   
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
