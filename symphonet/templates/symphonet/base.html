@@ -10,6 +10,7 @@
         Symphonet
         {% endblock %}
     </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/base.css' %}">
 </head>
 
 <body>
@@ -18,8 +19,8 @@
         <h1>SymphoNet</h1>
 
         {% if user.is_authenticated %}
-        <p>Hello {{ user.username }}</p>
-        <a href ="{% url 'symphonet:logout' %}">Logout</a>
+        <p class="user-message">Welcome {{ user.username }}</p>
+        <a href ="{% url 'symphonet:logout' %}" class="logout">Logout</a>
         {% else %}
                 <a href = "{% url 'symphonet:sign_up' %}">Sign up</a>
                 <a href = "{% url 'symphonet:user_login' %}">Login</a>
@@ -27,10 +28,19 @@
         {% endif %}
 
         <hr />
-        <li><a href="{% url 'symphonet:index' %}">Index</a></li>
-        <li><a href="{% url 'symphonet:about_us' %}">About us</a></li>
+        <a href="{% url 'symphonet:index' %}" class="home-icon">
+            <img src="{% static 'images/index.jpeg' %}" alt="home icon" />
+        </a>
+        
+        <a href="{% url 'symphonet:about_us' %}" class="about-icon">
+            <img src="{% static 'images/about.jpeg' %}" alt="about icon" />
+        </a>
         <!-- (TOE) To wsork on: Account be an icon and only displayed if user is logged in -->
-        <li><a href="{% url 'symphonet:account' %}">Account</a></li>
+        {% if user.is_authenticated %}
+        <a href="{% url 'symphonet:account' %}" class="account-icon">
+            <img src="{% static 'images/account.jpeg' %}" alt="account icon" />
+        </a>
+        {% endif %}
         {% endblock %}
     </div>
     <div>
