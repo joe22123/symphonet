@@ -1,14 +1,19 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from symphonet1.models import Song
+from symphonet1.models import Song, Artist, Album
 from symphonet1.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login,logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 
+
+
 def index(request):
-    return render(request, 'symphonet/index.html')
+    top_artists = Artist.objects.order_by('-avgRating')[:5]
+    top_albums = Album.objects.order_by('-avgRating')[:5]
+    top_songs = Song.objects.order_by('-ratingScore')[:5]
+    return render(request, 'symphonet/index.html', {'artists': top_artists, 'albums': top_albums, 'songs': top_songs})
 
 def about_us(request):
 

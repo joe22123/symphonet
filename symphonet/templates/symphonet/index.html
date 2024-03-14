@@ -2,35 +2,43 @@
 {% load staticfiles %}
 
 {% block title_block %}
-    Homepage
+    Index
 {% endblock %}
 
 {% block body_block %}
-    <div>
-    <h1>Index/HomePage<h1> 
-    <h1>Trending<h1> 
-    </div>
-        <div>
-            <h2>Most Liked Playlists</h2>
-            {% if playlists %}
-                <ul>
-                {% for playlist in playlists %}
-                {% endfor %}
-                </ul> 
-            {% else %}
-                <strong>There are no playlists present.</strong> 
-            {% endif %}
-        </div>
-    
-        <h2>Most Reviewed Songs</h2>
-        <div>
-            {% if songs %}
-                <ul>
-                    {% for song in songs %}
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <strong>There are no songs present.</strong>
-            {% endif %}
-        </div>
+<body>
+    <h1> Trending</h1> 
+    <h3>Top Five Rated Artists</h3>
+    {% if artists %}
+    <ul>
+        {% for artist in artists %}
+            <li>{{ artist.name }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>There are no artists present.</strong>
+    {% endif %}
+
+    <h3>Top Five Rated Albums</h3>
+    {% if albums %}
+    <ul>
+        {% for album in albums %}
+            <li>{{ album.name }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>There are no albums present.</strong>
+    {% endif %}
+
+    <h3>Top Five Rated Songs</h3>
+    {% if songs %}
+    <ul>
+        {% for song in songs %}
+            <li>{{ song.name }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>There are no songs present.</strong>
+    {% endif %}
+</body>
 {% endblock %}
