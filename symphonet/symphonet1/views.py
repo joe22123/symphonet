@@ -6,9 +6,6 @@ from django.contrib.auth import authenticate, login,logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-
-
-
 def index(request):
     top_artists = Artist.objects.order_by('-avgRating')[:5]
     top_albums = Album.objects.order_by('-avgRating')[:5]
