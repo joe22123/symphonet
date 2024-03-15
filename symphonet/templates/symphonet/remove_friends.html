@@ -1,0 +1,23 @@
+
+{% extends 'symphonet/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+  <h2>Remove Friends</h2>
+  {% if friends %}
+    <form action="{% url 'symphonet:remove_friends_submit' %}" method="post">
+      {% csrf_token %}
+      <ul>
+        {% for friend in friends %}
+          <li>
+            <input type="checkbox" name="friends" value="{{ friend.pk }}"> {{ friend.user.username }}
+          </li>
+        {% endfor %}
+      </ul>
+      <button type="submit">Remove Selected Friends</button>
+    </form>
+  {% else %}
+    <p>No friends to remove.</p>
+    <a href="{% url 'symphonet:account' %}">Return to Account</a>
+  {% endif %}
+{% endblock %}

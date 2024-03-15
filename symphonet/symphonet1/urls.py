@@ -16,4 +16,10 @@ urlpatterns = [
     path('sign_up/', views.sign_up, name='sign_up'),
     path('login/', views.user_login, name='user_login'),
     path('logout/',views.user_logout, name="logout"),
+    path('add_playlist',views.user_logout, name="logout"),
+    path('add_friends/', views.add_friends, name='add_friends'), 
+    path('add_friends_submit/', views.add_friends_submit, name='add_friends_submit'),
+    path('remove_friends/', views.remove_friends, name='remove_friends'), 
+    path('remove_friends_submit/', views.remove_friends_submit, name='remove_friends_submit'),
+    
 ]

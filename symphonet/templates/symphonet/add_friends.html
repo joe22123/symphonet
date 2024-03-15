@@ -1,0 +1,22 @@
+{% extends 'symphonet/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+  <h2>Add Friends</h2>
+  {% if users %}
+    <form action="{% url 'symphonet:add_friends_submit' %}" method="post">
+      {% csrf_token %}
+      <ul>
+        {% for user in users %}
+          <li>
+            <input type="checkbox" name="friends" value="{{ user.pk }}"> {{ user.username }}
+          </li>
+        {% endfor %}
+      </ul>
+      <button type="submit">Add Selected Friends</button>
+    </form>
+  {% else %}
+    <p>No other users to add as friends.</p>
+    <a href="{% url 'symphonet:account' %}">Return to Account</a>
+  {% endif %}
+{% endblock %}

@@ -9,8 +9,6 @@
 {% block body_block %}
     <div>
         <h2>User's Playlists</h2>
-        <a href="{% url 'symphonet:playlists' %}">My Playlists</a>
-        <a href="{% url 'symphonet:add_playlist' %}">New Playlist</a>
         </form>
     </div>
 
@@ -20,6 +18,23 @@
     </div>
 
     <div>
-        <h2>Friend's Playlists</h2>
+        <h2>Your Friends</h2>
+        {% if friends %}
+            <ul>
+                {% for friend_profile in friends %}
+                    <li>{{ friend_profile.user.username }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You don't have any friends yet.</p>
+        {% endif %}
+    </div>
+
+    <div>
+        <a href="{% url 'symphonet:add_friends' %}">Add Friends</a>
+    </div>
+
+    <div>
+        <a href="{% url 'symphonet:remove_friends' %}">Remove Friends</a>
     </div>
 {% endblock %}
