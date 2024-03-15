@@ -35,7 +35,11 @@
         <a href="{% url 'symphonet:about_us' %}" class="about-icon">
             <img src="{% static 'images/about.jpeg' %}" alt="about icon" />
         </a>
-        <!-- (TOE) To wsork on: Account be an icon and only displayed if user is logged in -->
+
+        <a href="{% url 'symphonet:songs' %}" class="song-icon">
+            <img src="{% static 'images/songs.jpg' %}" alt="song icon" />
+        </a>
+
         {% if user.is_authenticated %}
         <a href="{% url 'symphonet:account' %}" class="account-icon">
             <img src="{% static 'images/account.jpeg' %}" alt="account icon" />

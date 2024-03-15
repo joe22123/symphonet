@@ -6,5 +6,18 @@
 {% endblock %}
 
 {% block body_block %}
+    {{song.name}}
+    {{song.ratingScore}}
+    {{song.artist}}
+
+    </br>
+    
+    {% if rating %}
+        {% for r in rating %}
+            <p> {{rating.comment}} </p>
+        {% endfor %}
+    {% else %}
+        <p>No reviews currently</p>
+    {% endif %}
 
 {% endblock %}

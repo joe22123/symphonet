@@ -1,0 +1,25 @@
+{% extends 'symphonet/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Songs
+{% endblock %}
+
+{% block body_block %}
+    <h2>All Songs</h2>
+    {% block content %}
+        {% for song in page_obj %}
+            <a href={% url 'symphonet:song_review' song.id %}>
+            {{song.name}} - {{song.artist}}
+            </a>
+            </br>
+        {% endfor %}
+    {% endblock %}
+
+    {% block pagination %}
+        {% for page_number in page_obj.paginator.page_range %}
+            <a href="{% url 'symphonet:songs_by_page' page_number %}"
+            class="{% if page_number == page_obj.number %}current{% endif %}">{{page_number}}</a>    
+        {% endfor %}
+    {% endblock %}
+{% endblock %}
