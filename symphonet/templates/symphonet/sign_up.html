@@ -66,7 +66,6 @@
 
 {% block body_block %}
 <div class="login-form"> 
-        <!-- 
         <div class="mb-3">
             <input type="text" class="form-control" placeholder="Email" aria-label="Email"
                 aria-describedby="addon-wrapping">
@@ -89,7 +88,7 @@
             <input type="date" id="datepicker" class="form-control" placeholder="Select Date">
 
         </div>
-    -->
+   
     {% if registered %}
         <p> thank you for signing up</p>
         <a href = "{% url 'symphonet:index' %}">Main Page</a>
@@ -97,14 +96,14 @@
     <form id="user_form" method = "post" action="{% url 'symphonet:sign_up' %}" enctype = "multipart/form-data">
 
         {% csrf_token %}
-        {{ user_form.as_p }}
-
+       
         <div class="btn-container">
             <input type="submit" class="btn" name = "submit" value="Sign up">
         </div>
         <div class="btn-container">
-            <button type="button" class="btn">
-                <a href = "{% url 'symphonet:user_login' %}">Login</a></button>
+            <button type="button" class="btn" onclick="window.location.href='{% url 'symphonet:user_login' %}'"><!--There is no error here even tho it has a red marker,it works fine-->
+                Login
+            </button>  
         </div>
        
     </form>

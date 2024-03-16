@@ -4,6 +4,8 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         Symphonet -
         {% block title_block %}
@@ -14,45 +16,57 @@
 </head>
 
 <body>
-    <div>
-        {% block header_block %}
-        <h1>SymphoNet</h1>
+    <nav class="navbar navbar-expand-lg navbar-light" style="position: fixed; top: 0; width: 100%; background-color: rgba(0, 0, 0,0.5); z-index: 1000; box-shadow: auto;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'symphonet:index' %}" style="color: white;">SymphoNet</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link home-icon" href="{% url 'symphonet:index' %}"><img
+                                src="{% static 'images/home-icon.png' %}" alt="home icon" /></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link about-icon" href="{% url 'symphonet:about_us' %}"> <img
+                                src="{% static 'images/about-icon.png' %}" alt="about icon" /></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link song-icon" href="{% url 'symphonet:songs' %}"><img
+                                src="{% static 'images/music-icon.png' %}" alt="song icon" /></a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <p class="user-message account-icon"><img src="{% static 'images/profile.png' %}"
+                                alt="account icon" />Welcome {{ user.username }}</p>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'symphonet:sign_up' %}" class="btn">Sign-up</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'symphonet:logout' %}" class="btn">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'symphonet:user_login' %}" class="btn">Login</a>
+                    </li>
+                    {% endif %}
 
-        {% if user.is_authenticated %}
-        <p class="user-message">Welcome {{ user.username }}</p>
-        <a href ="{% url 'symphonet:logout' %}" class="logout">Logout</a>
-        {% else %}
-                <a href = "{% url 'symphonet:sign_up' %}">Sign up</a>
-                <a href = "{% url 'symphonet:user_login' %}">Login</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        {% endif %}
-
-        <hr />
-        <a href="{% url 'symphonet:index' %}" class="home-icon">
-            <img src="{% static 'images/index.jpeg' %}" alt="home icon" />
-        </a>
-        
-        <a href="{% url 'symphonet:about_us' %}" class="about-icon">
-            <img src="{% static 'images/about.jpeg' %}" alt="about icon" />
-        </a>
-
-        <a href="{% url 'symphonet:songs' %}" class="song-icon">
-            <img src="{% static 'images/songs.jpg' %}" alt="song icon" />
-        </a>
-
-        {% if user.is_authenticated %}
-        <a href="{% url 'symphonet:account' %}" class="account-icon">
-            <img src="{% static 'images/account.jpeg' %}" alt="account icon" />
-        </a>
-        {% endif %}
-        {% endblock %}
-    </div>
     <div>
         {% block body_block %}
         {% endblock %}
     </div>
-
-
 </body>
 
 </html>
