@@ -129,3 +129,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+#Login
+LOGIN_URL = 'symphonet:login'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
