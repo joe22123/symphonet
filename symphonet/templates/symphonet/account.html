@@ -8,13 +8,28 @@
 
 {% block body_block %}
     <div>
-        <h2>User's Playlists</h2>
-        </form>
+        <h2>Your Playlists</h2>
+        <a href="{% url 'symphonet:add_playlist' %}">new playlist</a>
+        {% if playlists %}
+            {% for playlist in playlists %}
+                {{ playlist.name }}
+            {% endfor %}
+        {% else %}
+            <p>No playlists currently.</p>
+        {% endif %}
     </div>
 
     <div>
         <h2>Your Top Songs</h2>
         <a href="{% url 'symphonet:user_reviews' %}">My Reviews</a>
+        {% if ratings %}
+            {% for rating in ratings %}
+                {{ rating.song.name }}
+                {{ rating.score }}
+            {% endfor %}
+        {% else %}
+            <p>No reviews currently.</p>
+        {% endif %}
     </div>
 
     <div>

@@ -1,6 +1,6 @@
 {% extends 'symphonet/base.html' %}
 {% load staticfiles %}
-<!-- Should eventually be username -->
+
 {% block title_block %}
     User's Playlists
 {% endblock %}
@@ -9,4 +9,11 @@
     <div>
         <h2>Your Playlists</h2>
     </div>
+    {% if playlists %}
+        {% for playlist in playlists %}
+            <p> {{playlist.name}} </p>
+        {% endfor %}
+    {% else %}
+        <p>No Playlists currently</p>
+    {% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 from symphonet1.models import Song, Artist, Album, Rating, Playlist
-from symphonet1.forms import UserForm, UserProfileForm, UserProfile
+from symphonet1.forms import UserForm, UserProfileForm, UserProfile, PlaylistForm
 from django.contrib.auth import authenticate, login,logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -24,7 +24,15 @@ def about_us(request):
 
 def account(request):
     # Shows all users except the current one
+    context_dict={}
     users = User.objects.exclude(pk=request.user.pk)
+    context_dict['users'] = users
+    current_user_profile = UserProfile.objects.get(user=request.user)
+    
+    playlists = Playlist.objects.all().filter(user=request.user)[:5]
+    ratings = Rating.objects.all().filter(user=current_user_profile)[:5]
+    context_dict['playlists'] = playlists
+    context_dict['ratings'] = ratings
     
     # Check if a UserProfile already exists for the user
     try:
@@ -33,7 +41,8 @@ def account(request):
         user_profile = UserProfile.objects.create(user=request.user)
         
     friends = user_profile.friends.all()
-    return render(request, 'symphonet/account.html', {'users': users, 'friends': friends})
+    context_dict['friends'] = friends
+    return render(request, 'symphonet/account.html', context=context_dict)
 
 def add_friends(request):   
     users = User.objects.exclude(pk=request.user.pk)
@@ -91,9 +100,6 @@ def user_reviews(request):
     #context_dict['topFive'] = topFiveSongs
     return render(request, 'symphonet/my_reviews.html', context = context_dict)
 
-def user_playlists(request):
-    return render(request, 'symphonet/playlists.html')
-
 def song_review(request, songid):
     song = Song.objects.get(id=songid)
     rating = Rating.objects.all().filter(song_id=songid)
@@ -120,7 +126,7 @@ def songs(request,page):
     return render(request,'symphonet/songs.html', context = context_dict)
 
 @login_required
-def playlist(request):
+def playlists(request):
     all_playlists = Playlist.objects.all()
     context_dict = {}
     try:
@@ -128,24 +134,45 @@ def playlist(request):
     except Playlist.DoesNotExist:
         context_dict['playlists'] = None
     return render(request, 'symphonet/playlists.html', context = context_dict)
+
+@login_required
+def add_playlist(request):
+    if request.method == "POST":
+        form = PlaylistForm(request.POST, initial={'user': request.user,'songs': None})
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse('symphonet:songs'))
+        else:
+            print(form.errors)
+    else:
+        form = PlaylistForm(initial={'user': request.user, 'songs': None})
+            
+    context_dict = {'form': form}       
+    return render(request, 'symphonet/add_playlist.html', context=context_dict)
     
 def sign_up(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
 
-        if user_form.is_valid() :
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             registered = True
             user.save()   
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
         else:
             print(user_form.errors)
     else:
         user_form = UserForm()
+        profile_form = UserProfileForm()
         
     
     context_dict ={'user_form':user_form,
+                   'profile_form':profile_form,
                    'registered':registered}
 
     return render(request, 'symphonet/sign_up.html', context = context_dict)
