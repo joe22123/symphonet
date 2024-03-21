@@ -9,7 +9,7 @@
     <h2>All Songs</h2>
     {% block content %}
         {% for song in page_obj %}
-            <a href={% url 'symphonet:song_review' song.id %}>
+            <a href="{% url 'symphonet:song_review' song.id %}">
             {{song.name}} - {{song.artist}}
             </a>
             </br>

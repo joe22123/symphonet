@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block body_block %}
-    {{song.name}}
-    {{song.ratingScore}}
-    {{song.artist}}
+    {{song.name}} - {{song.artist}}
+</br>
+    Score: {{song.ratingScore}}
+    
 
     </br>
     
@@ -19,5 +20,7 @@
     {% else %}
         <p>No reviews currently</p>
     {% endif %}
+</br></br>
+<a href="{% url 'symphonet:make_review' song.id %}">Make Review</a>
 
 {% endblock %}

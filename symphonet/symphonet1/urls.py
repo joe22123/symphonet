@@ -11,6 +11,7 @@ urlpatterns = [
     path('songs/', views.SongListView.as_view(), name="songs"),
     path('songs/<int:page>',views.songs, name="songs_by_page"),
     path('songs/song/<int:songid>',views.song_review, name="song_review"),
+    path('songs/song/<int:songid>/review',views.make_review, name="make_review"),
     path('account/myreviews', views.user_reviews, name='user_reviews'),
     path('account/myplaylists', views.playlists, name='playlists'),
     path('add_playlist/', views.add_playlist, name='add_playlist'),

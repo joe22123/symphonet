@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 from symphonet1.models import Song, Artist, Album, Rating, Playlist
-from symphonet1.forms import UserForm, UserProfileForm, UserProfile, PlaylistForm
+from symphonet1.forms import UserForm, UserProfileForm, UserProfile, ReviewForm, PlaylistForm
 from django.contrib.auth import authenticate, login,logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -111,6 +111,25 @@ def song_review(request, songid):
         context_dict['rating'] = None
         
     return render(request, 'symphonet/song_review.html', context = context_dict)
+
+
+def make_review(request, songid):
+    song = Song.objects.get(id=songid)
+    context_dict = {}
+    
+    form = ReviewForm()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse('symphonet:song_review', kwargs={'song.id':songid}))
+        else:
+            print(form.errors)
+        
+    context_dict = {'form': form, 'song': song}
+    return render(request, 'symphonet/make_review.html', context = context_dict)
 
 class SongListView(ListView):
     paginate_by = SONGS_IN_PAGE
