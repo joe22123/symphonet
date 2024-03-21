@@ -7,21 +7,20 @@
 {% endblock %}
 
 {% block body_block %}
-<div class="container">
+    <div>
         <h2>Your Playlists</h2>
-        <div class="container-fluid bg-light">
         <a href="{% url 'symphonet:add_playlist' %}">new playlist</a>
         {% if playlists %}
             {% for playlist in playlists %}
-                <p>{{ playlist.name }}</p>
+                {{ playlist.name }}
             {% endfor %}
         {% else %}
             <p>No playlists currently.</p>
         {% endif %}
-        </div>
+    </div>
 
-    <h2>Your Top Songs</h2>
-        <div class="container-fluid bg-light">
+    <div>
+        <h2>Your Top Songs</h2>
         <a href="{% url 'symphonet:user_reviews' %}">My Reviews</a>
         {% if ratings %}
             {% for rating in ratings %}
@@ -31,7 +30,7 @@
         {% else %}
             <p>No reviews currently.</p>
         {% endif %}
-        </div>
+    </div>
 
     <div>
         <h2>Your Friends</h2>
@@ -53,5 +52,4 @@
     <div>
         <a href="{% url 'symphonet:remove_friends' %}">Remove Friends</a>
     </div>
-</div>
 {% endblock %}

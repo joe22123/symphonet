@@ -1,0 +1,104 @@
+/* base.css */
+
+.user-message {
+    text-align: right;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.logout {
+    text-align: right;
+    margin-right: 10px;
+}
+
+/* Styles for the home icon image */
+/* .home-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+
+.account-icon img {
+    width: 60px;
+    height: 60px;
+}
+
+.about-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+.song-icon img {
+    width: 60px;
+    height: 60px;
+} */
+
+body {
+    background-color: rgba(255, 224, 178, 0.717);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-container {
+    flex: 1;
+    /* This will make login form take remaining vertical space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Add opacity to background */
+    padding: 20px;
+    align-items: center;
+    align-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    /* Set width to prevent stretching */
+}
+
+.form-control {
+    margin-bottom: 15px;
+    /* Increased margin between input fields */
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    /* Align buttons to the center */
+}
+
+.btn {
+    width: auto;
+    color: #000;
+    background-color: #fff0db;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding: auto;
+    /* Added margin between buttons and input fields */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+}
+
+.btn-link {
+    width: 50%;
+    color: #116bc4;
+    margin-top: 10px;
+    /* Added margin between buttons and input fields */
+    transition: all 0.3s ease;
+    /* Smooth transition */
+}
+
+
+.btn:hover {
+    color: #fff0db;
+    background-color: #000;
+}
