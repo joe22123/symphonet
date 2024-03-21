@@ -131,6 +131,6 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 #Login
-LOGIN_URL = 'symphonet:login'
+LOGIN_URL = 'symphonet:user_login'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

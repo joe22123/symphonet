@@ -78,6 +78,7 @@
         {% csrf_token %}
 
         {{ user_form.as_p }}
+        {{ profile_form.as_p }}
        
         <div class="btn-container">
             <input type="submit" class="btn" name = "submit" value="Sign up">
