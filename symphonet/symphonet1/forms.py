@@ -3,12 +3,19 @@ from symphonet1.models import Rating,UserProfile, Playlist, Song
 from django.contrib.auth.models import User
 
 class ReviewForm(forms.ModelForm):
-    song = forms.CharField(max_length = 128, help_text="Please write a short review (under 128 characters)")
-    score = forms.IntegerField(max_value=5,min_value=0, help_text="Please enter your score (between 0-5)")
-
     class Meta:
         model = Rating
-        fields = ('song','score')
+        fields = ['song', 'score', 'comment']
+        widgets = {
+            'song': forms.HiddenInput(),
+        }
+        help_texts = {
+            'score': 'Please enter your score (0-5).',
+            'comment': 'Please write a short review.',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs)
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

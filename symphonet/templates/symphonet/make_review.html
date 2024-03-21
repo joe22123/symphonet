@@ -1,25 +1,30 @@
 {% extends 'symphonet/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-   Make Review
-{% endblock %}
-
 {% block body_block %}
-<h1>{{song.name}} - {{song.artist}}</h1>
-<div>
-    <form id="review_form" method="post" action="{% url 'symphonet:make_review' song.id %}">
+    
+    <!-- Display any form errors -->
+    {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            Please correct the following errors.
+        </div>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ field.label }}:</strong> {{ error }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    
+    <!-- The form itself -->
+    <form method="post" action="{% url 'symphonet:make_review' song.id %}">
         {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-        {% endfor %}
-        <input type="submit" name="submit" value="Post Review" />
+        {{ form.as_p }}
+        <input type="hidden" name="song" value="{{ song.id }}" />
+        <button type="submit" class="btn btn-primary">Submit Review</button>
     </form>
-</div>
-
+    
+    <!-- Back to song reviews page, adjust URL as necessary -->
+    <a href="{% url 'symphonet:song_review' song.id %}" class="btn btn-secondary">Back to Reviews</a>
 {% endblock %}

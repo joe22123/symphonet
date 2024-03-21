@@ -1,16 +1,10 @@
 from django.db import models
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
-def limit(value):
-    if value >6 and value >0:
-        raise ValidationError("please enter a number less than 5")
-  
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     friends = models.ManyToManyField("self", blank=True)
     
@@ -35,7 +29,7 @@ class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.name} by {self.artist}"
+        return self.name
     
 class Song(models.Model):
     NAME_MAX_LENGTH = 30
@@ -57,18 +51,22 @@ class Playlist(models.Model):
     
     def __str__(self):
         return self.name
-
-class Rating(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='ratings')
-    song = models.ForeignKey(Song, on_delete=models.CASCADE, related_name='ratings')
-    score = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    comment = models.TextField()
     
+class Rating(models.Model):
+    COMMENT_MAX_LENGTH = 200
+    
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    score = models.FloatField(default=0)
+    comment = models.CharField(max_length=COMMENT_MAX_LENGTH)
+    
+    # Multiple Primary Key
     class Meta:
-        # Ensuring that a user can only rate a song once
-        unique_together = ('user', 'song')
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "song"], name="unique_user_song_combo"
+            )
+        ]    
     
     def __str__(self):
-        return f"{self.score}/5 by {self.user} for {self.song}"
-    
-
+        return self.score

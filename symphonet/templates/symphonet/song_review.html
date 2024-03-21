@@ -1,26 +1,35 @@
 {% extends 'symphonet/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-   
-{% endblock %}
-
 {% block body_block %}
-    {{song.name}} - {{song.artist}}
-</br>
-    Score: {{song.ratingScore}}
-    
 
-    </br>
-    
-    {% if rating %}
-        {% for r in rating %}
-            <p> {{rating.comment}} </p>
+{% if messages %}
+{% for message in messages %}
+    <div class="alert {{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
+    <h1>Review for {{ song.name }} by {{ song.artist }}</h1>
+
+<h1>{{ song.name }} by {{ song.artist }}</h1>
+<p>Average Rating: {{ ratingScore|default:"No ratings yet" }}</p>
+
+{% if ratings %}
+    <ul>
+        {% for rating in ratings %}
+        <li>
+            <strong>Score:</strong> {{ rating.score }}/5
+            <br>
+            <strong>Comment:</strong> {{ rating.comment }}
+            <br>
+            <strong>By:</strong> {{ rating.user.user.username }}
+        </li>
         {% endfor %}
-    {% else %}
-        <p>No reviews currently</p>
-    {% endif %}
-</br></br>
-<a href="{% url 'symphonet:make_review' song.id %}">Make Review</a>
+    </ul>
+{% else %}
+    <p>No reviews currently.</p>
+{% endif %}
 
+<a href="{% url 'symphonet:make_review' song.id %}">Write a Review</a>
 {% endblock %}

@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from symphonet1.models import Song, Artist, Album, Rating, Playlist
+from symphonet1.models import Song, Artist, Album, Rating, Playlist, UserProfile
 from symphonet1.forms import UserForm, UserProfileForm, UserProfile, ReviewForm, PlaylistForm
 from django.contrib.auth import authenticate, login,logout
 from django.urls import reverse
@@ -9,6 +9,8 @@ from django.views.generic import ListView
 from django.core.paginator import Paginator
 from django.template import loader
 from django.contrib.auth.models import User
+from django.db.models import Avg
+from django.contrib import messages
 
 SONGS_IN_PAGE = 5
 
@@ -101,35 +103,50 @@ def user_reviews(request):
     return render(request, 'symphonet/my_reviews.html', context = context_dict)
 
 def song_review(request, songid):
-    song = Song.objects.get(id=songid)
-    rating = Rating.objects.all().filter(song_id=songid)
-    context_dict = {}
-    context_dict['song'] = song
-    try:
-        context_dict['rating'] = rating
-    except Rating.DoesNotExist:
-        context_dict['rating'] = None
-        
-    return render(request, 'symphonet/song_review.html', context = context_dict)
-
-
-def make_review(request, songid):
-    song = Song.objects.get(id=songid)
-    context_dict = {}
+    print("Song Review View Called")  # Debugging line
+    song = get_object_or_404(Song, id=songid)
     
-    form = ReviewForm()
+    ratings = Rating.objects.filter(song=song)
+    
+    average_score = ratings.aggregate(Avg('score'))['score__avg']
+    
+    if average_score is None:
+        average_score = "No ratings yet"
+
+    print("Context:", {
+        'song': song,
+        'ratings': ratings,
+        'ratingScore': average_score,
+    })  # Debugging line to inspect context
+    
+    return render(request, 'symphonet/song_review.html', {
+        'song': song,
+        'ratings': ratings,
+        'ratingScore': average_score,
+    })
+
+@login_required
+def make_review(request, songid):
+    song = get_object_or_404(Song, id=songid)
+    existing_review = Rating.objects.filter(user=UserProfile.objects.get(user=request.user), song=song).first()
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        if existing_review:
+            messages.error(request, 'You have already reviewed this song.')
+            return redirect('symphonet:song_review', songid=song.id)
+        else:
+            post_data = request.POST.copy()
+            post_data['song'] = songid
+            form = ReviewForm(post_data)
 
         if form.is_valid():
-            form.save(commit=True)
-            return redirect(reverse('symphonet:song_review', kwargs={'song.id':songid}))
-        else:
-            print(form.errors)
-        
-    context_dict = {'form': form, 'song': song}
-    return render(request, 'symphonet/make_review.html', context = context_dict)
+            review = form.save(commit=False)
+            review.user = UserProfile.objects.get(user=request.user)
+            review.save()
+            return redirect('symphonet:song_review', songid=song.id)
+    else:
+        form = ReviewForm()
+    return render(request, 'symphonet/make_review.html', {'form': form, 'song': song})
 
 class SongListView(ListView):
     paginate_by = SONGS_IN_PAGE
