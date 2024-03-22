@@ -20,7 +20,7 @@
         {% endif %}
         </div>
 
-    <h2>Your Top Songs</h2>
+    <h2>Your Top Ratings</h2>
         <div class="container-fluid bg-light">
         <a href="{% url 'symphonet:user_reviews' %}">My Reviews</a>
         {% if ratings %}
@@ -38,7 +38,7 @@
         {% if friends %}
             <ul>
                 {% for friend_profile in friends %}
-                    <li>{{ friend_profile.user.username }}</li>
+                    <li><a href="{% url 'symphonet:user_profile' friend_profile.user.id %}">{{ friend_profile.user.username }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

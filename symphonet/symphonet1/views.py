@@ -96,6 +96,20 @@ def remove_friends_submit(request):
     # If the request method is not POST or if there's an error, render the form page again
     return redirect('symphonet:remove_friends')
 
+def user_profile(request, user_id):
+    context_dict = {}
+    
+    user_profile = get_object_or_404(UserProfile, pk=user_id)
+    context_dict['user_profile'] = user_profile
+    
+    playlists = Playlist.objects.filter(user=user_profile.user)[:5]
+    ratings = Rating.objects.all()
+    ratings = ratings.filter(user=user_profile)
+    context_dict['playlists'] = playlists
+    context_dict['ratings'] = ratings
+    
+    return render(request, 'symphonet/user_profile.html', context=context_dict)
+    
 def user_reviews(request):
     context_dict = {}
     current_user_profile = UserProfile.objects.get(user=request.user)

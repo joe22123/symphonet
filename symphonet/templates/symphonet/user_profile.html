@@ -1,0 +1,35 @@
+{% extends 'symphonet/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Profile
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <h2>{{ user_profile }}'s Playlists </h2>
+        <div class="container-fluid bg-light">
+        {% if playlists %}
+            {% for playlist in playlists %}
+                <p>{{ playlist.name }}</p>
+            {% endfor %}
+        {% else %}
+            <p>No playlists currently.</p>
+        {% endif %}
+        </div>
+
+    <h2>{{ user_profile }}'s Top Ratings</h2>
+        <div class="container-fluid bg-light">
+        {% if ratings %}
+            <ul>
+            {% for rating in ratings %}
+                <li>{{ rating.song.name }} - {{ rating.score }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No reviews currently.</p>
+        {% endif %}
+        </div>
+
+</div>
+{% endblock %}
