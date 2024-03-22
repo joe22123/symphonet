@@ -8,29 +8,45 @@ from symphonet1.models import UserProfile, Album, Song, Playlist, Artist, Rating
 
 def populate():
     
-    noah_songs = [{'name': 'Stick Season',
-                   'albumID': ''}]
+    # This would ideally be the naive solution to add a large amount of songs
+    # into the database.
+    # dataset = open('dataset.csv', 'r', encoding='utf-8')
     
-    sophie_songs = [{'name': 'Murder on the dancefloor',
-                     'albumID': ''}]
+    # for row in dataset:
+    #     row = row.split(',')
+    #     row[2] = row[2].split(';')
+    #     if len(row[2]) == 1:
+    #         name = row[2][0]
+    #         artist = add_artist(name)
+    #         album = add_album(row[3], artist)
+    #         song = add_song(row[4], album, artist)
+    
+    # For the sake of saving time in populating the database
+    # this will be used instead
+    
+    noah_songs = [{'name': 'Stick Season',
+                   'album': 'Stick Season'}]
+    
+    sophie_songs = [{'name': 'Murder On The Dancefloor',
+                     'album': 'Read My Lips'}]
     
     benson_songs = [{'name': 'Beautiful Things',
-                     'albumID': ''}]
+                     'album': 'Beautiful Things'}]
     
     tatemcrae_songs = [{'name': 'greedy',
-                        'albumID': ''}]
+                        'album': 'Think Later'}]
     
     natasha_songs = [{'name': 'Unwritten',
-                      'albumID': ''}]
+                      'album': 'Unwritten'}]
     
     sara_songs = [{'name': 'Bored',
-                   'albumID': ''},
+                   'album': 'Bored'},
                   {'name': 'Freeze',
-                   'albumID': ''},
+                   'album': 'Struck by Lightning'},
                   {'name': 'Home for the Summer',
-                   'albumID': ''},
+                   'album': 'Camera Shy'},
                   {'name': 'Is There Anything Else?',
-                   'albumID': ''}]
+                   'album': 'Is There Anything Else?'}]
     
     artists = {'Noah Kahan': {'songs': noah_songs},
                'Sophie Ellis-Bextor': {'songs': sophie_songs},

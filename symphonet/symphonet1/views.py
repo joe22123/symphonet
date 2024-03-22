@@ -97,9 +97,11 @@ def remove_friends_submit(request):
     return redirect('symphonet:remove_friends')
 
 def user_reviews(request):
-    #topFiveSongs = Song.objects.order_by('-ratingScore')[:5]
     context_dict = {}
-    #context_dict['topFive'] = topFiveSongs
+    current_user_profile = UserProfile.objects.get(user=request.user)
+    user_reviews = Rating.objects.filter(user=current_user_profile)
+    
+    context_dict['reviews'] = user_reviews
     return render(request, 'symphonet/my_reviews.html', context = context_dict)
 
 def song_review(request, songid):
