@@ -71,4 +71,17 @@ class Rating(models.Model):
     def __str__(self):
         return f"{self.score}/5 by {self.user} for {self.song}"
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        self.update_song_rating_score()
+
+    def update_song_rating_score(self):
+        # Calculate the new average rating
+        ratings = Rating.objects.filter(song=self.song)
+        average_score = ratings.aggregate(models.Avg('score'))['score__avg']
+
+        # Update the song's ratingScore
+        self.song.ratingScore = average_score if average_score is not None else 0
+        self.song.save()
+    
 

@@ -154,7 +154,7 @@ class SongListView(ListView):
     template_name = 'symphonet/songs.html'
     
 def songs(request,page):
-    all_songs = Song.objects.all().order_by('name')
+    all_songs = Song.objects.all().order_by('ratingScore')
     paginator = Paginator(all_songs, per_page=SONGS_IN_PAGE)
     
     page_object = paginator.get_page(page)
